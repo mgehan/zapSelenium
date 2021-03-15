@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"
+    ; charset="utf-8" />
+	<meta http-equiv="content_security_policy" content= "default-src 'self'; style-src 'self'; 'unsafe-inline';">
+    <!-- 
+        <title>${title}</title>
+         -->
+    <title>Selenium Test Report</title>
+
+    <script src="resources/js/jquery-1.10.2.min.js" language="JavaScript"></script>
+    <script src="resources/js/mktree.js" language="JavaScript"></script>
+    <script src="resources/js/jquery.lightbox-0.5.min.js"
+            language="JavaScript">
+    </script>
+<script src="resources/js/report.js" language="JavaScript" ></script>
+    <script src="resources/js/browserdetect.js" language="JavaScript">
+    </script>
+
+<link rel="stylesheet" type="text/css"
+	href="resources/css/jquery.lightbox-0.5.css" media="screen">
+<link rel="stylesheet" type="text/css" href="resources/css/report.css">
+<link rel="stylesheet" type="text/css" href="resources/css/mktree.css">
+<script type="text/javascript">
+	$(function() {
+		$('.lightbox').lightBox();
+	});
+</script>
+    <script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+
+						$('.filmStrip a').lightBox();
+
+						$('.tab')
+								.click(
+										function(event) {
+											// highlight the right tab. 
+											$(this).parent().children()
+													.removeClass('active');
+											;
+											$(this).addClass('active');
+
+											// envt or test ?
+											var group = $(this).attr('id');
+
+											// report ID
+											var reportId = $(this).parent()
+													.attr('id');
+
+											var groupArray = 'envt,test'
+													.split(',');
+											for ( var i = 0; i < groupArray.length; i++) {
+												if (group == groupArray[i]) {
+													$('div#' + reportId)
+															.find(
+																	'.'
+																			+ groupArray[i])
+															.show();
+													$('div#' + reportId)
+															.find(
+																	'.'
+																			+ groupArray[i])
+															.addClass('active');
+												} else {
+													$('div#' + reportId)
+															.find(
+																	'.'
+																			+ groupArray[i])
+															.hide();
+													$('div#' + reportId)
+															.find(
+																	'.'
+																			+ groupArray[i])
+															.removeClass(
+																	'active');
+												}
+											}
+										});
+
+						$(':checkbox').click(
+								function(event) {
+									var suiteId = $(this).attr('name');
+									var value = $(this).attr('value');
+									var checked = $(this).attr('checked');
+									$('div#' + suiteId).find('.' + value)
+											.toggle(checked);
+								});
+
+						$('.toDetailLnk').click(function(event) {
+							$('div#reports').children().hide();
+							$('div#' + $(this).attr('tg')).show();
+						});
+
+						$('.exceptionlnk').click(
+								function(event) {
+									$(this).parent().find('div.exception')
+											.toggle('slow');
+								});
+
+						$('.testloglnk')
+								.click(
+										function(event) {
+											$(this).parent().parent().find(
+													'div.testlog').toggle(
+													'slow');
+											$(this)
+													.text('Test-Steps');
+										});
+
+						$('.xmldifflnk').click(function(event) {
+							var difftxt = $(this).text();
+							if (difftxt.indexOf('+') > -1) {
+								$(this).text(difftxt.replace('+', '-'));
+							} else {
+								$(this).text(difftxt.replace('-', '+'));
+							}
+						});
+
+						// show the first suite.
+						$('div#reports').children().hide();
+						$('div#reports').find('div:first').show();
+
+						// select envt per default
+						var groupArray = 'envt,test'.split(',');
+						for ( var i = 0; i < groupArray.length; i++) {
+							if ('test' == groupArray[i]) {
+								$('div#reports').find('.' + groupArray[i])
+										.show();
+								$('div#reports').find('.' + groupArray[i])
+										.addClass('active');
+							} else {
+								$('div#reports').find('.' + groupArray[i])
+										.hide();
+								$('div#reports').find('.' + groupArray[i])
+										.removeClass('active');
+							}
+						}
+
+					});
+
+    </script>
+</head>
+<body>
+
+
+<div id='selenium_header'>
+    <div id='report_info' class='floatLeft'>
+        <div class="yuk_goldgrad_tl">
+            <div class="yuk_goldgrad_tr">
+                <div class="yuk_goldgrad_m"></div>
+            </div>
+        </div>
+        <h2 class="yuk_goldgrad_runinfo">
+            &nbsp; <a
+                href='http://www.seleniumtests.com/2013/10/announcing-selenium-tests-automation.html'>SeleniumTestsFramework-STF</a><br/>
+        </h2>
+    </div>
+
+    <div class="clear_both"></div>
+</div>
+
+<br/>
+<div id='report_summary' xmlns="http://www.w3.org/1999/html">
+
+    <div class="yuk_goldgrad_tl">
+        <div class="yuk_goldgrad_tr">
+            <div class="yuk_goldgrad_m"></div>
+        </div>
+    </div>
+    <h2 class="yuk_goldgrad_ltitle">Selenium Framework Test Suite</h2>
+
+    <table id="yuk_table" cellpadding="0" cellspacing="0" border="0"
+           summary="This is a summary of the data presented in the table">
+        <!-- *** please complete a summary of the table *** -->
+
+        <!-- start colgroup -->
+        <colgroup>
+            <col/>
+            <col align="right"/>
+            <col align="right"/>
+            <col align="right"/>
+            <!-- needs align attribute for IE -->
+            <col align="right"/>
+            <!-- needs align attribute for IE -->
+        </colgroup>
+        <!-- //end colgroup -->
+
+        <!-- start table column headers -->
+        <thead>
+        <!-- *** give column headers abbr *** -->
+        <tr>
+            <th scope="col" abbr="header1_abbr" id="first_col">Tests in Test Suite:</th>
+            <th scope="col" abbr="header2_abbr" class="right">Method Count</th>
+            <th scope="col" abbr="header3_abbr" class="right">Passed Tests Count</th>
+            <th scope="col" abbr="header4_abbr" class="right">Failed Tests Count</th>
+            <th scope="col" abbr="header5_abbr" class="right">Skipped Tests Count</th>
+            <!-- use class name left/right/center to align text in column -->
+        </tr>
+        </thead>
+        <!-- //end table column headers -->
+
+        <!-- start table foot -->
+        <tfoot>
+        <tr>
+            <td colspan="5">Test Execution Time : 7.8 sec.</td>
+            <!-- set total number of columns -->
+        </tr>
+
+        <tr>
+            <td colspan="5">----------------------------------------------</td>
+        </tr>
+
+        <tr>
+            <td colspan="5">Test Execution Date : Sun 14 Mar 11:52:32 IST 2021</td>
+        </tr>
+
+        </tfoot>
+        <!-- //end table foot -->
+
+        <!-- //end table foot -->
+
+        <!-- start table body -->
+        <tbody>
+                                <tr class="odd">
+                                    <td class="first"><a class='toDetailLnk' tg='acc32daaf63a3669a8c7bbf57c948c62' href='#'>WebTest - Using java 8</a>
+            </td>
+            <td>5</td>
+            <td>5</td>
+            <td>1</td>
+            <td class="last">0</td>
+        </tr>
+                        <tr class="even">
+                        <td class="first"><b>Total</b></td>
+            <td><b>5</b></td>
+            <td><b>5</b></td>
+            <td><b>1</b></td>
+            <td class="last"><b>0</b></td>
+        </tr>
+        </tbody>
+        <!-- //end table body -->
+
+    </table>
+    <!-- //end panel table -->
+
+
+    <!-- start panel footer -->
+    <div class="yuk_grey_bm">
+        <div class="yuk_grey_br">
+            <div class="yuk_grey_bl"></div>
+        </div>
+        <!-- //end panel footer -->
+    </div>
+
+</div><div id='reports'>
+<div id='acc32daaf63a3669a8c7bbf57c948c62' style='width: 100%; display: none;'>
+    <div class="yuk_tab_panel suitePanel">
+        <div class="yuk_goldgrad_tl">
+            <div class="yuk_goldgrad_tr">
+                <div class="yuk_goldgrad_m"></div>
+            </div>
+        </div>
+
+        <div class="yuk_tabbed_nav">
+            <h2 class="yuk_tab_title" id='acc32daaf63a3669a8c7bbf57c948c62' style="padding-bottom: 10px;">Test Details - WebTest - Using java 8</h2>
+
+            <div style='float: left'>
+                <input type='checkbox' name='acc32daaf63a3669a8c7bbf57c948c62' value="skipped" checked='checked'>
+                <font color="grey"><b>skipped</b></font>
+            </div>
+            <div style='float: left'>
+                <input type='checkbox' name='acc32daaf63a3669a8c7bbf57c948c62' value='failed' checked='checked'>
+                <font color="red"><b>failed</b></font>
+            </div>
+            <div style='float: left'>
+                <input type='checkbox' name='acc32daaf63a3669a8c7bbf57c948c62' value='passed' checked='checked'>
+                <font color="green"><b>passed</b></font>
+            </div>
+
+            <ul id='acc32daaf63a3669a8c7bbf57c948c62' style="margin-left:1400px;">
+                <li class='tab active' id='test'>
+                    <a href="#"><span>Tests (
+					<font color="green">5</font> 
+					/ <font color="red">1</font> 
+					/ <font color="grey">0</font>
+					)</span></a>
+                </li>
+                
+            </ul>
+        </div>
+
+        <div class="clear_both"></div>
+
+        <div class='envt' style='width: 98%;margin-left:15px;'>
+            
+        </div>
+
+        <div class='test' style='width: 98%;margin-left:15px;'>
+            <div class='method failed'>
+    <div class="yuk_goldgrad_tl">
+        <div class="yuk_goldgrad_tr">
+            <div class="yuk_goldgrad_m"></div>
+        </div>
+    </div>
+    <h3 class="yuk_grad_ltitle_failed">com.seleniumtests.tests.api_testing.RestAPITest1.validateGetRequest()</h3>
+    <h4 class="yuk_pnl_subheading_failed">neither javadoc nor description for this method.</h4>
+
+    <div class="yuk_pnl_content_failed">
+        <div class='leftContent' style='float: left; width: 100%;'><h4><a href='javascript:void(0);' class='testloglnk'>Test Steps [ - ]</a></h4><div class='testlog' ><ol></ol> <div class='stContainer' >class java.lang.AssertionError:1 expectation failed.<br/>Expected status code <400> but was <200>.<br/>(<a  href='javascript:void(0);'  class='exceptionlnk'>stacktrace</a>)<div class='exception' style='display:none'>sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)<br/>at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)<br/>at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)<br/>at java.lang.reflect.Constructor.newInstance(Constructor.java:423)<br/>at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:72)<br/>at org.codehaus.groovy.reflection.CachedConstructor.doConstructorInvoke(CachedConstructor.java:59)<br/>at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrap.callConstructor(ConstructorSite.java:84)<br/>at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)<br/>at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:493)<br/>at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$6.call(Unknown Source)<br/>at io.restassured.internal.ResponseSpecificationImpl.validateResponseIfRequired(ResponseSpecificationImpl.groovy:674)<br/>at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br/>at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>at java.lang.reflect.Method.invoke(Method.java:498)<br/>at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)<br/>at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)<br/>at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)<br/>at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)<br/>at io.restassured.internal.ResponseSpecificationImpl.statusCode(ResponseSpecificationImpl.groovy:126)<br/>at io.restassured.specification.ResponseSpecification$statusCode$5.callCurrent(Unknown Source)<br/>at io.restassured.internal.ResponseSpecificationImpl.statusCode(ResponseSpecificationImpl.groovy:134)<br/>at io.restassured.internal.ValidatableResponseOptionsImpl.statusCode(ValidatableResponseOptionsImpl.java:89)<br/>at io.restassured.internal.ValidatableResponseImpl.super$2$statusCode(ValidatableResponseImpl.groovy)<br/>at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br/>at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>at java.lang.reflect.Method.invoke(Method.java:498)<br/>at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)<br/>at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)<br/>at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1268)<br/>at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodOnSuperN(ScriptBytecodeAdapter.java:144)<br/>at io.restassured.internal.ValidatableResponseImpl.statusCode(ValidatableResponseImpl.groovy:142)<br/>at io.restassured.internal.ValidatableResponseImpl.statusCode(ValidatableResponseImpl.groovy)<br/>at com.seleniumtests.tests.api_testing.RestAPITest1.validateGetRequest(RestAPITest1.java:55)<br/>at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br/>at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>at java.lang.reflect.Method.invoke(Method.java:498)<br/>at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)<br/>at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)<br/>at org.testng.internal.Invoker.retryFailed(Invoker.java:967)<br/>at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1146)<br/>at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)<br/>at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)<br/>at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)<br/>at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)<br/>at java.lang.Thread.run(Thread.java:748)</div></div></div></div><div class='clear_both'></div>
+    </div>
+
+    <div class="yuk_grey_bm_footer">
+        <div class="yuk_grey_br">
+            <div class="yuk_grey_bl"></div>
+        </div>
+    </div>
+</div><div class='method passed'>
+    <div class="yuk_goldgrad_tl">
+        <div class="yuk_goldgrad_tr">
+            <div class="yuk_goldgrad_m"></div>
+        </div>
+    </div>
+    <h3 class="yuk_grad_ltitle_passed">com.seleniumtests.tests.api_testing.RestAPITest1.passParametersBetweenTests()</h3>
+    <h4 class="yuk_pnl_subheading_passed">neither javadoc nor description for this method.</h4>
+
+    <div class="yuk_pnl_content_passed">
+        <div class='clear_both'></div>
+    </div>
+
+    <div class="yuk_grey_bm_footer">
+        <div class="yuk_grey_br">
+            <div class="yuk_grey_bl"></div>
+        </div>
+    </div>
+</div><div class='method passed'>
+    <div class="yuk_goldgrad_tl">
+        <div class="yuk_goldgrad_tr">
+            <div class="yuk_goldgrad_m"></div>
+        </div>
+    </div>
+    <h3 class="yuk_grad_ltitle_passed">com.seleniumtests.tests.api_testing.RestAPITest1.printResponse()</h3>
+    <h4 class="yuk_pnl_subheading_passed">neither javadoc nor description for this method.</h4>
+
+    <div class="yuk_pnl_content_passed">
+        <div class='clear_both'></div>
+    </div>
+
+    <div class="yuk_grey_bm_footer">
+        <div class="yuk_grey_br">
+            <div class="yuk_grey_bl"></div>
+        </div>
+    </div>
+</div><div class='method passed'>
+    <div class="yuk_goldgrad_tl">
+        <div class="yuk_goldgrad_tr">
+            <div class="yuk_goldgrad_m"></div>
+        </div>
+    </div>
+    <h3 class="yuk_grad_ltitle_passed">com.seleniumtests.tests.api_testing.RestAPITest1.testWithPathParameters()</h3>
+    <h4 class="yuk_pnl_subheading_passed">neither javadoc nor description for this method.</h4>
+
+    <div class="yuk_pnl_content_passed">
+        <div class='clear_both'></div>
+    </div>
+
+    <div class="yuk_grey_bm_footer">
+        <div class="yuk_grey_br">
+            <div class="yuk_grey_bl"></div>
+        </div>
+    </div>
+</div><div class='method passed'>
+    <div class="yuk_goldgrad_tl">
+        <div class="yuk_goldgrad_tr">
+            <div class="yuk_goldgrad_m"></div>
+        </div>
+    </div>
+    <h3 class="yuk_grad_ltitle_passed">com.seleniumtests.tests.api_testing.RestAPITest1.testWithQueryParameters(1, "george.bluth@reqres.in" )</h3>
+    <h4 class="yuk_pnl_subheading_passed">neither javadoc nor description for this method.</h4>
+
+    <div class="yuk_pnl_content_passed">
+        <div class='clear_both'></div>
+    </div>
+
+    <div class="yuk_grey_bm_footer">
+        <div class="yuk_grey_br">
+            <div class="yuk_grey_bl"></div>
+        </div>
+    </div>
+</div><div class='method passed'>
+    <div class="yuk_goldgrad_tl">
+        <div class="yuk_goldgrad_tr">
+            <div class="yuk_goldgrad_m"></div>
+        </div>
+    </div>
+    <h3 class="yuk_grad_ltitle_passed">com.seleniumtests.tests.api_testing.RestAPITest1.testWithQueryParameters(2, "michael.lawson@reqres.in" )</h3>
+    <h4 class="yuk_pnl_subheading_passed">neither javadoc nor description for this method.</h4>
+
+    <div class="yuk_pnl_content_passed">
+        <div class='clear_both'></div>
+    </div>
+
+    <div class="yuk_grey_bm_footer">
+        <div class="yuk_grey_br">
+            <div class="yuk_grey_bl"></div>
+        </div>
+    </div>
+</div>
+        </div>
+        
+    </div>
+</div></div>
+</body></html>

@@ -1,0 +1,15 @@
+com/seleniumtests/builderpattern/BigUser2.class
+com/seleniumtests/builderpattern/BigUser2$1.class
+com/seleniumtests/blogexamples/driversetup/BaseClassDriverSetup.class
+com/seleniumtests/webpage/LoginPage.class
+com/seleniumtests/webpage/GoogleHomePage.class
+com/seleniumtests/blogexamples/driversetup/BaseClassOnDemandDriverSetupWithProxy.class
+com/seleniumtests/webpage/CalculatorScreen.class
+com/seleniumtests/webpage/SauceLabsPage.class
+com/seleniumtests/webpage/UICatalogScreen.class
+com/seleniumtests/dataobject/User.class
+com/seleniumtests/webpage/RegistrationPage.class
+com/seleniumtests/builderpattern/BigUser2$Builder.class
+com/seleniumtests/blogexamples/driversetup/BaseSecurity.class
+com/seleniumtests/builderpattern/BigUser1.class
+com/seleniumtests/blogexamples/driversetup/BaseClassOnDemandDriverSetup.class

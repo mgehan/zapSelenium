@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 1, Errors: 0, Skipped: 3, Time elapsed: 8.135 sec <<< FAILURE! - in TestSuite
+validateGetRequest(com.seleniumtests.tests.api_testing.RestAPITest1)  Time elapsed: 0.334 sec  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+Expected status code <400> but was <200>.
+
+	at com.seleniumtests.tests.api_testing.RestAPITest1.validateGetRequest(RestAPITest1.java:55)
+
